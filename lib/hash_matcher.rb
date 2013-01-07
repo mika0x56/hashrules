@@ -9,7 +9,6 @@ class HashMatcher
 
   def include_folder folder
     Dir["#{folder}/*.rb"].each do |file|
-      puts "incing #{file}"
       @current_folder = folder
       contents = File.read(file)
       eval(contents, binding)
@@ -52,10 +51,12 @@ class HashMatcher
   def match *args, &block
     matcher = HashMatcher.new
     old_context = @context
+    old_folder = @current_folder
     @context.rules << [args, matcher]
     @context = matcher
     block.call
     @context = old_context
+    @current_folder = old_folder
   end
 
   def stringified hash
