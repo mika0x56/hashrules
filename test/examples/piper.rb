@@ -1,6 +1,6 @@
 
 match /piper/ do
-  set manufacturer: 'piper'
+  set manufacturer: 'Piper'
 
   include_subfolder 'piper'
 end
