@@ -36,13 +36,23 @@ class HashMatcher
     data.merge! sets
 
     rules.each do |regexes, matcher|
-      if regexes.any?{|r| string =~ r}
+      if regexes.any?{|r| test(string,r)}
         matcher.analyze(string, data)
       end
     end
   end
 
   private
+
+  def test string, regex
+    match = string.match(regex)
+    if match
+      pre_cond = (match.pre_match == "" || match.pre_match =~ /[^\d\w]$/)
+      post_cond = (match.post_match == "" || match.post_match =~ /^[^\w\d]/)
+
+      pre_cond && post_cond
+    end
+  end
 
   def set sub_hash
     @context.sets.merge! stringified sub_hash

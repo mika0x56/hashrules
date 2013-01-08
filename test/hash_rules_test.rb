@@ -21,5 +21,11 @@ class HashRulesTest < TestCase
       @it.process(data)
       assert_equal 'PA-28-181 Archer II', data['model']
     end
+
+    should 'not allow numbers or letter next to match' do
+      data = {'headline'=>"piper apa-289"}
+      @it.process(data)
+      assert_equal nil, data['family']
+    end
   end
 end
