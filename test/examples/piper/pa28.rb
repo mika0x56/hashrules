@@ -4,7 +4,7 @@ match /pa 28/, /pa28/ do
   set engine_count: 1
   set category: 'piston'
 
-  match /pa28 181/, /pa 28 181/ do
+  match 'pa28 181', 'pa 28 181' do
     set model: 'PA-28-181'
     set horsepower: 180
 

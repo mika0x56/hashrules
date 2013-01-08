@@ -44,14 +44,8 @@ class HashMatcher
 
   private
 
-  def test string, regex
-    match = string.match(regex)
-    if match
-      pre_cond = (match.pre_match == "" || match.pre_match =~ /[^\d\w]$/)
-      post_cond = (match.post_match == "" || match.post_match =~ /^[^\w\d]/)
-
-      pre_cond && post_cond
-    end
+  def test string, matcher
+    string =~ matcher
   end
 
   def set sub_hash
@@ -59,10 +53,17 @@ class HashMatcher
   end
 
   def match *args, &block
+    regexes = args.map do |arg|
+      if arg.kind_of?(String)
+        /(^| )#{Regexp.escape(arg)}($| )/
+      else
+        arg
+      end
+    end
     matcher = HashMatcher.new
     old_context = @context
     old_folder = @current_folder
-    @context.rules << [args, matcher]
+    @context.rules << [regexes, matcher]
     @context = matcher
     block.call
     @context = old_context
