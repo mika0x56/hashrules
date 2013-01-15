@@ -13,6 +13,7 @@ class HashRules
   def process hash
     string = hash[@field].downcase
     string.gsub!('-', ' ')
+    string.gsub!('/', ' ')
     @hashmatcher.analyze(string, hash)
   end
 
