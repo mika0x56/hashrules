@@ -38,6 +38,7 @@ class HashMatcher
     rules.each do |regexes, matcher|
       if regexes.any?{|r| test(string,r)}
         matcher.analyze(string, data)
+        break
       end
     end
   end

@@ -45,5 +45,12 @@ class HashRulesTest < TestCase
       @it.process(data)
       assert_equal nil, data['model']
     end
+
+    should 'not allow several matches in the same context' do
+      # note: the rules are written in regex /ii/ which means it will also match /iii/
+      data = {'headline'=>'piper pa28 181 archer iii'}
+      @it.process(data)
+      assert_equal 'PA-28-181 Archer II', data['model']
+    end
   end
 end
