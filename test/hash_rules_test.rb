@@ -46,6 +46,12 @@ class HashRulesTest < TestCase
       assert_equal "PA-28-181", data['model']
     end
 
+    should 'use "word" to make regexes match whole words' do
+      data = {'headline'=>"piper apa-280"}
+      @it.process(data)
+      assert_equal nil, data['family']
+    end
+
     should 'not allow numbers or letter next to STRING match' do
       data = {'headline'=>"piper apa-28 18100"}
       @it.process(data)

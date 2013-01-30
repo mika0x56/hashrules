@@ -1,5 +1,5 @@
 
-match /pa 28/, /pa28/ do
+match w(/pa ?28/) do # => /( |^)pa ?28( |$)/
   set family: 'PA-28 Cherokee'
   set engine_count: 1
   set category: 'piston'

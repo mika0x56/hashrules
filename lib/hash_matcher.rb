@@ -71,6 +71,10 @@ class HashMatcher
     @current_folder = old_folder
   end
 
+  def w(regex) # make it match whole words
+    /(^| )#{regex.source}($| )/
+  end
+
   def stringified hash
     hash.keys.each do |key|
       val = hash.delete(key)
