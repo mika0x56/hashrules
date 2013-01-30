@@ -14,6 +14,7 @@ class HashRules
     string = hash[@field].downcase
     string.gsub!('-', ' ')
     string.gsub!('/', ' ')
+    string.gsub!(/\s+/, ' ')
     @hashmatcher.analyze(string, hash)
   end
 
