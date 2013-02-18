@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'test_helper'
 require 'hash_rules'
 
@@ -63,6 +65,20 @@ class HashRulesTest < TestCase
       data = {'headline'=>'piper pa28 181 archer iii'}
       @it.process(data)
       assert_equal 'PA-28-181 Archer II', data['model']
+    end
+
+    context "case insensitive" do
+      should 'match latin letters' do
+        data = {'headline'=>"pIpER"}
+        @it.process(data)
+        assert_equal "Piper", data['manufacturer']
+      end
+
+      should 'match cyrillic letters' do
+        data = {'headline'=>"Ми-8Т"}
+        @it.process(data)
+        assert_equal "Ми-8Т", data['manufacturer']
+      end
     end
   end
 end
