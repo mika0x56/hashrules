@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.authors       = ['Mikael Wikman']
-  gem.email         = ['mikael@wikman.me']
+  gem.email         = ['mikael@swedcontent.com']
   gem.description   = %q{Rule-based hash manipulator using custom DSL}
   gem.summary       = %q{ }
   gem.homepage      = ""
@@ -12,5 +12,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|features)/})
   gem.name          = "hashrules"
   gem.require_paths = ["lib"]
-  gem.version       = 0.1
+  gem.version       = '0.1.0'
 end
