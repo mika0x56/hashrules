@@ -46,7 +46,13 @@ class HashMatcher
   private
 
   def test string, matcher
-    string =~ matcher
+    if matcher.is_a?(NoClass)
+      !(string =~ matcher.regex)
+    elsif matcher.is_a?(AndClass)
+      matcher.regexes.all?{|r| string =~ r}
+    else
+      string =~ matcher
+    end
   end
 
   def set sub_hash
@@ -75,11 +81,35 @@ class HashMatcher
     /(^| )#{regex.source}($| )/
   end
 
+  def no(regex)
+    NoClass.new(regex)
+  end
+
+  def both(*regexes)
+    AndClass.new(regexes)
+  end
+
   def stringified hash
     hash.keys.each do |key|
       val = hash.delete(key)
       hash[key.to_s] = val
     end
     hash
+  end
+
+  class NoClass
+    attr_reader :regex
+
+    def initialize regex
+      @regex = regex
+    end
+  end
+
+  class AndClass
+    attr_reader :regexes
+
+    def initialize regexes
+      @regexes = regexes
+    end
   end
 end

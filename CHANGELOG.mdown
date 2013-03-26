@@ -1,6 +1,7 @@
 
 # ChangeLog
 
-## 0.2.0
+## 0.2
 
+* Add matcher keywords both() for applying AND operator and no() for negating an expression
 * Change name to sc-hashrules
