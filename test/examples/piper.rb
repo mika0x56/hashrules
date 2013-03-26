@@ -1,5 +1,5 @@
 
-match both(/per/, no('piper')) do
+match both(/per/, no(/piper/)) do
   set manufacturer: 'Per'
 end
 

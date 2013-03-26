@@ -47,9 +47,9 @@ class HashMatcher
 
   def test string, matcher
     if matcher.is_a?(NoClass)
-      !(string =~ matcher.regex)
+      !(test(string,matcher.regex))
     elsif matcher.is_a?(AndClass)
-      matcher.regexes.all?{|r| string =~ r}
+      matcher.regexes.all?{|r| test(string,r)}
     else
       string =~ matcher
     end
@@ -60,13 +60,7 @@ class HashMatcher
   end
 
   def match *args, &block
-    regexes = args.map do |arg|
-      if arg.kind_of?(String)
-        /(^| )#{Regexp.escape(arg)}($| )/
-      else
-        arg
-      end
-    end
+    regexes = args.map{|r| to_regex(r)}
     matcher = HashMatcher.new
     old_context = @context
     old_folder = @current_folder
@@ -82,11 +76,19 @@ class HashMatcher
   end
 
   def no(regex)
-    NoClass.new(regex)
+    NoClass.new(to_regex(regex))
   end
 
   def both(*regexes)
-    AndClass.new(regexes)
+    AndClass.new(to_regex(regexes))
+  end
+
+  def to_regex(matcher)
+    if matcher.kind_of?(String)
+      /(^| )#{Regexp.escape(matcher)}($| )/
+    else
+      matcher
+    end
   end
 
   def stringified hash
@@ -103,6 +105,10 @@ class HashMatcher
     def initialize regex
       @regex = regex
     end
+
+    def to_s
+      "!(#{@regex})"
+    end
   end
 
   class AndClass
@@ -110,6 +116,10 @@ class HashMatcher
 
     def initialize regexes
       @regexes = regexes
+    end
+
+    def to_s
+      @regexes.map{|r| r.inspect}.join(' AND ')
     end
   end
 end
