@@ -86,6 +86,8 @@ class HashMatcher
   def to_regex(matcher)
     if matcher.kind_of?(String)
       /(^| )#{Regexp.escape(matcher)}($| )/
+    elsif matcher.kind_of?(Array) 
+      matcher.map{|r| to_regex(r)}
     else
       matcher
     end

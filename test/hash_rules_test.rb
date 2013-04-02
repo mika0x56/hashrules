@@ -54,11 +54,20 @@ class HashRulesTest < TestCase
       assert_equal nil, data['family']
     end
 
-    should 'use both and no to make operation trees' do
-      data = {'headline'=>'person'}
-      @it.process(data)
-      assert_equal 'Per', data['manufacturer']
+    context 'both and no' do
+      should 'make operation trees' do
+        data = {'headline'=>'person'}
+        @it.process(data)
+        assert_equal 'Per', data['manufacturer']
+      end
+
+      should 'use both with strings and regexes' do
+        data = {'headline'=>'string rregexx'}
+        @it.process(data)
+        assert_equal 'success', data['manufacturer']
+      end
     end
+
 
     should 'not allow numbers or letter next to STRING match' do
       data = {'headline'=>"piper apa-28 18100"}
