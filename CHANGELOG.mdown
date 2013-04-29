@@ -1,6 +1,14 @@
 
 # ChangeLog
 
+## 1.0.0
+
+This is a major version which breaks backwards compatibility.
+
+* Changed API: HashRules#process now takes a single string and returns a new hash
+* Added submatch feature to find results (deeply) nested even if a top level couldn't match.
+* HashRules no longer cleans string before process (such as removing - and /), this is now the responsibility of the application.
+
 ## 0.2.3
 
 * Fix issue with using both and strings (it would only accept no-class and regex before)

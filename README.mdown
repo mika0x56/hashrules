@@ -1,0 +1,105 @@
+
+# HashRules
+
+A simple, yet powerful, gem for building constructions for identifying contents in a string in a structured, hierarchical, manner.
+
+## Example
+
+Suppose you're building a system for identifying countries, regions and cities wihtin a string. An exerpt might look like this:
+
+```ruby
+match 'united states', w(/u ?s ?a/) do
+  set country: 'United States'
+
+  match /( |^)cali/, 'ca' do
+    set state: 'California'
+    set region: 'West Coast'
+
+    match 'long beach', 'longbeach' do
+      set city: 'Long Beach'
+    end
+
+    match 'fontana' do
+      set city: 'Fontana'
+    end
+  end
+end
+```
+
+This simple DSL translates to a series of OR and AND statements. For example, the path for matching all the way to 'Long Beach' is:
+
+```ruby
+text = "Long Beach, California, United States"
+text.gsub!(',','')
+result = {}
+
+if (text =~ /( |^)united states( |$)/ || text =~ /( |^)u ?s ?a( |$)/)
+  result['country'] = 'United States'
+
+  if (text =~ /( |^)cali/ || text =~ /( |^)ca( |$)/)
+    result['state'] = 'California'
+    result['region'] = 'West Coast'
+
+    if (text =~ /( |^)long beach( |$)/ || text =~ /( |^)longbeach( |$)/)
+      result['city'] = 'Long Beach'
+    elsif text =~ /( |^)fontana( |$)/
+      result['city'] = 'Fontana'
+    end
+  end
+end
+```
+
+## Available matchers
+<table>
+  <tr>
+    <th>Notation</th><th>Equivalence</th><th>Use case</th>
+  </tr>
+  <tr>
+    <td>
+      w(regex)
+    </td>
+    <td>
+      /( |^)#{regex}( |$)/
+    </td>
+    <td>
+      Create regex matching only whole words 
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      'regex'
+    </td>
+    <td>
+      /( |^)#{Regexp.escape(regex)}( |$)/
+    </td>
+    <td>
+      String matching whole words. 'key' would match "I have a key" but not "monkey"
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      no(matcher)
+    </td>
+    <td>
+      !(matcher.success?)
+    </td>
+    <td>
+      Inverted string or regex matcher 
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      both(A,B)
+    </td>
+    <td>
+      A.success? && B.success?            
+    </td>
+    <td>
+      Logical AND of given matchers, which may be nested 
+    </td>
+  </tr>
+</table>
+
