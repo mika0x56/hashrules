@@ -1,6 +1,10 @@
 
 # ChangeLog
 
+## 1.0.3
+
+* Bugfix: Some cases would sort a low-level submatch over a higher one. Now matchlevel is set accordingly and sorted with if coverage are equal
+
 ## 1.0.2
 
 * Bugfix: Coverage was not set for parent matchers in the case of a successful submatch. This meant that sometimes a first-level match would be ranked lower (treated as a submatch) when another submatch was found.

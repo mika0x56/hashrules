@@ -147,5 +147,16 @@ class HashRulesTest < TestCase
 
       assert_equal [[0,6],[8,11]], r[0]['coverage']
     end
+
+    should 'include matchlevel' do
+      r = @it.process('pearson ohio', max_submatch_level: 6, limit: -1)
+      assert_equal 2, r[0]['matchlevel']
+
+      r = @it.process('oregon', max_submatch_level: 6, limit: -1)
+      assert_equal 'Canada', r[0]['data']['country']
+      assert_equal 2, r[0]['matchlevel']
+      assert_equal 'United States', r[1]['data']['country']
+      assert_equal 3, r[1]['matchlevel']
+    end
   end
 end

@@ -5,6 +5,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     ansi (1.4.3)
+    awesome_print (1.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     htmlentities (4.3.1)
@@ -28,6 +29,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   htmlentities
   mocha
   rake

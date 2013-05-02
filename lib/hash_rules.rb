@@ -88,7 +88,13 @@ class HashRules
     end
 
     def sort_by_coverage
-      @memory.sort!{|a,b| b['percent_coverage'] <=> a['percent_coverage']}
+      @memory.sort! do |a,b| 
+        result = b['percent_coverage'] <=> a['percent_coverage']
+        if result == 0
+          result = a['matchlevel'] <=> b['matchlevel']
+        end
+        result
+      end
     end
 
     def remembered_results

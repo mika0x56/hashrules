@@ -32,7 +32,7 @@ class HashMatcher
     result
   end
 
-  def analyze string, opts={}
+  def analyze string, opts={}, level=1
     matches = []
     opts[:limit] ||= 1
     skip_levels = opts[:skip_levels] || 0
@@ -41,11 +41,12 @@ class HashMatcher
       offsets = []
       if regexes.find{|r| offsets=test(string,r)} || skip_levels > 0 
         opts[:skip_levels] = skip_levels-1
-        sub_matches = matcher.analyze(string, opts)
+        sub_matches = matcher.analyze(string, opts, level+1)
         
         sub_matches.map do |m| 
           m['data'] = sets.merge(m['data'])
           if offsets
+            m['matchlevel'] = level
             offsets.each do |offset|
               start, stop  = offset
 
