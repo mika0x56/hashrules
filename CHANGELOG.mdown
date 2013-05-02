@@ -1,6 +1,11 @@
 
 # ChangeLog
 
+## 1.0.1
+
+* When using smart search / submatching - don't count whitespace as coverage. This caused /germany/ in first level to gain less priority than /( |^)germany( |$)/ in USA (second level).
+* Fix a certain case where a Limit set to 1 would gain -1 (unlimited) interpretation
+
 ## 1.0.0
 
 This is a major version which breaks backwards compatibility.

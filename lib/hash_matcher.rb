@@ -45,7 +45,18 @@ class HashMatcher
         
         sub_matches.map do |m| 
           m['data'] = sets.merge(m['data'])
-          m['coverage'] += offsets if offsets
+          if offsets
+            offsets.each do |offset|
+              start, stop  = offset
+
+              stop -= 1
+
+              start += 1 if string[start] == ' '
+              stop -= 1 if string[stop] == ' '
+
+              m['coverage'] << [start,stop]
+            end
+          end
         end
 
         matches += sub_matches

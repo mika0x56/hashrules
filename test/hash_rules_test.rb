@@ -54,8 +54,8 @@ class HashRulesTest < TestCase
       first = data.first
 
       assert_equal 'Piper', first['data']['manufacturer']
-      assert_equal [[23,29], [11,16]], first['coverage']
-      assert_equal 37, first['percent_coverage']
+      assert_equal [[24, 27], [11, 15]], first['coverage']
+      assert_equal 25, first['percent_coverage']
     end
 
     context 'both and no' do
@@ -78,7 +78,7 @@ class HashRulesTest < TestCase
 
     should 'not allow several matches in the same context' do
       # note: the rules are written in regex /ii/ which means it will also match /iii/
-      data = @it.process('piper pa28 181 archer iii').first['data']
+      data = @it.process('piper pa28 181 archer iii', limit: 1).first['data']
       assert_equal 'PA-28-181 Archer II', data['model']
     end
 

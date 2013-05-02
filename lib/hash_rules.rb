@@ -46,7 +46,7 @@ class HashRules
     end
 
     def analyze submatch_level
-      limit = @limit <= 0 ? -1 : results_count() - @limit
+      limit = @limit <= 0 ? -1 : (results_count() - @limit).abs
       opts = {
         skip_levels: submatch_level,
         limit: limit
@@ -59,7 +59,7 @@ class HashRules
         coverage = Array.new(@string.length, false)
         m['coverage'].each do |start, stop|
           (start..stop).each do |i|
-            coverage[i-1] = true
+            coverage[i] = true
           end
         end
         m['percent_coverage'] = coverage.find_all{|c| c}.count * 100 / @string.length
