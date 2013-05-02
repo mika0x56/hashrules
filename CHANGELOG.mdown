@@ -1,10 +1,14 @@
 
 # ChangeLog
 
+## 1.0.2
+
+* Bugfix: Coverage was not set for parent matchers in the case of a successful submatch. This meant that sometimes a first-level match would be ranked lower (treated as a submatch) when another submatch was found.
+
 ## 1.0.1
 
-* When using smart search / submatching - don't count whitespace as coverage. This caused /germany/ in first level to gain less priority than /( |^)germany( |$)/ in USA (second level).
-* Fix a certain case where a Limit set to 1 would gain -1 (unlimited) interpretation
+* Bugfix: When using smart search / submatching - don't count whitespace as coverage. This caused /germany/ in first level to gain less priority than /( |^)germany( |$)/ in USA (second level).
+* Bugfix: Fix a certain case where a Limit set to 1 would gain -1 (unlimited) interpretation
 
 ## 1.0.0
 

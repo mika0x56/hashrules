@@ -39,7 +39,7 @@ class HashMatcher
 
     rules.each do |regexes, matcher|
       offsets = []
-      if skip_levels > 0 || regexes.find{|r| offsets=test(string,r)}
+      if regexes.find{|r| offsets=test(string,r)} || skip_levels > 0 
         opts[:skip_levels] = skip_levels-1
         sub_matches = matcher.analyze(string, opts)
         

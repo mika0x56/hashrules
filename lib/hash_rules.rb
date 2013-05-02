@@ -81,9 +81,10 @@ class HashRules
     end
 
     def remember results
-      results.each do |result|
-        @memory << result unless @memory.any?{|m| m[:match_id] == result[:match_id]}
-      end
+      @memory += results
+#      results.each do |result|
+#        @memory << result unless @memory.any?{|m| m[:match_id] == result[:match_id]}
+#      end
     end
 
     def sort_by_coverage

@@ -135,11 +135,17 @@ class HashRulesTest < TestCase
     should 'strive for 100% matach if possible' do
       r = @it.process('oregon ohio', max_submatch_level: 5, limit: -1)
 
-      assert_equal 2, r.count
+      assert_equal 3, r.count
 
       # Without intelligence, Oregon (canada) would be chosen because it's a state on the 2nd level, and Oregon in US is a city on 3rd level. However, we reason that if a 3rd level match can explain more about a string then it is reasonably more likely to be accurate.
       
       assert_equal 'Ohio', r[0]['data']['region']
+    end
+
+    should 'backtrack coverage when found submatch' do
+      r = @it.process('pearson ohio', max_submatch_level: 6, limit: -1)
+
+      assert_equal [[0,6],[8,11]], r[0]['coverage']
     end
   end
 end
