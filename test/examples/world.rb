@@ -4,7 +4,7 @@ match 'canada' do
   include_subfolder('canada')
 end
 
-match w(/u ?s ?a/), 'united states' do
+match w(/u ?s ?a?/), 'united states' do
   set country: 'United States'
   include_subfolder('united states')
 end

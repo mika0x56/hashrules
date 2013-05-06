@@ -104,9 +104,13 @@ class HashRules
 
     def sort_by_coverage
       @memory.sort! do |a,b| 
-        result = b['percent_coverage'] <=> a['percent_coverage']
+        result = b['coverage'].count <=> a['coverage'].count
         if result == 0
-          result = a['matchlevel'] <=> b['matchlevel']
+          result = b['percent_coverage'] <=> a['percent_coverage']
+
+          if result == 0
+            result = a['matchlevel'] <=> b['matchlevel']
+          end
         end
         result
       end

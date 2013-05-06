@@ -139,6 +139,15 @@ class HashRulesTest < TestCase
       assert_equal 'Canada', r['country']
     end
 
+    should 'prefer several multimatch over a single match and many characters' do
+
+      # there is no such place as 'or us' in canada, however there is or in united states
+      r = @it.process('canada or us', max_submatch_level: 6, limit: -1)
+
+      assert_equal 3, r.count
+      assert_equal 'United States', r[0]['data']['country']
+    end
+
     should 'strive for 100% matach if possible' do
       r = @it.process('oregon ohio', max_submatch_level: 5, limit: -1)
 

@@ -1,4 +1,4 @@
-match 'oregon' do
+match 'oregon', 'or' do
   set city: 'Oregon'
 
   match 'pearson' do

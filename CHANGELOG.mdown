@@ -1,6 +1,10 @@
 
 # ChangeLog
 
+## 1.1.2
+
+* Sort results that can explain more matches above those with less, even if the others covers more characters
+
 ## 1.1.1
 
 * Percent coverage should include spaces between matches, otherwise a fully covered string would never reach 100%
