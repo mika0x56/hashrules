@@ -1,4 +1,5 @@
 require 'hash_matcher'
+require 'json'
 
 class HashRules
 
@@ -7,10 +8,18 @@ class HashRules
 
     @hashmatcher = HashMatcher.new
     @hashmatcher.include_folder(@folder)
+    @cache = {}
   end
 
   def process string, opts={}
-    Processor.new(string, @hashmatcher, opts).do
+    if cached=@cache[string]
+      return Marshal.load(cached)
+    end
+
+    result = Processor.new(string, @hashmatcher, opts).do
+
+    @cache[string] = Marshal.dump(result)
+    result
   end
 
   def to_s
@@ -19,7 +28,7 @@ class HashRules
 
   class Processor
     def initialize string, hashmatcher, opts
-      @string = string
+      @string = string.dup
       @hashmatcher = hashmatcher
       @max_submatch_level = opts[:max_submatch_level] || 0
       @limit = opts[:limit] || 1
@@ -30,13 +39,13 @@ class HashRules
       clean_string
 
       each_submatch_level do |submatch_level|
-        remember(new_results = analyze(submatch_level))
+        add_to_list(new_results = analyze(submatch_level))
         break if reached_limit?
       end
 
       sort_by_coverage
 
-      remembered_results
+      list
     end
 
     private
@@ -80,7 +89,7 @@ class HashRules
       @memory.count
     end
 
-    def remember results
+    def add_to_list results
       @memory += results
 #      results.each do |result|
 #        @memory << result unless @memory.any?{|m| m[:match_id] == result[:match_id]}
@@ -97,7 +106,7 @@ class HashRules
       end
     end
 
-    def remembered_results
+    def list
       @memory
     end
     

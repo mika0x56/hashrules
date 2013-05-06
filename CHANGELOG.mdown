@@ -1,6 +1,10 @@
 
 # ChangeLog
 
+## 1.1.0
+
+* Added result caching
+
 ## 1.0.3
 
 * Bugfix: Some cases would sort a low-level submatch over a higher one. Now matchlevel is set accordingly and sorted with if coverage are equal
