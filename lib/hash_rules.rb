@@ -12,6 +12,8 @@ class HashRules
   end
 
   def process string, opts={}
+    string = clean_string(string)
+
     if cached=@cache[string]
       return Marshal.load(cached)
     end
@@ -20,6 +22,10 @@ class HashRules
 
     @cache[string] = Marshal.dump(result)
     result
+  end
+
+  def clean_string string
+    string.gsub /\s+/, ' '
   end
 
   def to_s
@@ -36,8 +42,6 @@ class HashRules
     end
 
     def do
-      clean_string
-
       each_submatch_level do |submatch_level|
         add_to_list(new_results = analyze(submatch_level))
         break if reached_limit?
@@ -49,10 +53,6 @@ class HashRules
     end
 
     private
-
-    def clean_string
-      @string.gsub! /\s+/, ' '
-    end
 
     def analyze submatch_level
       limit = @limit <= 0 ? -1 : (results_count() - @limit).abs

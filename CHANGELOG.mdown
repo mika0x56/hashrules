@@ -1,6 +1,10 @@
 
 # ChangeLog
 
+## 1.1.3
+
+* Improved cache hits
+
 ## 1.1.2
 
 * Sort results that can explain more matches above those with less, even if the others covers more characters
