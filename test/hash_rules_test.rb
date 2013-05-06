@@ -58,6 +58,13 @@ class HashRulesTest < TestCase
       assert_equal 25, first['percent_coverage']
     end
 
+    should 'include spaces between matches in percentage' do
+      data = @it.process("oregon canada")
+      first = data.first
+
+      assert_equal 100, first['percent_coverage']
+    end
+
     context 'both and no' do
       should 'make operation trees' do
         result = @it.process('person')

@@ -71,6 +71,12 @@ class HashRules
             coverage[i] = true
           end
         end
+        (1..(coverage.count-2)).each do |i|
+          if coverage[i-1] && coverage[i+1]
+            coverage[i] = true
+          end
+        end
+
         m['percent_coverage'] = coverage.find_all{|c| c}.count * 100 / @string.length
       end
        
