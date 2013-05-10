@@ -103,3 +103,30 @@ end
   </tr>
 </table>
 
+## Usage
+
+```
+rules = HashRules.new(args)
+
+# args:
+#  * folder: path to the folder containing one or more rule files (all will be read)
+
+process_args={}
+results = rules.process('Alabama, Canada', process_args)
+
+results.each do |result|
+  p result
+end
+```
+
+Each result contains the following keys:
+
+* data: This is the resulting data accumulated from the rules `set` statements
+* coverage: An array of index pairs showing what part of the string was matched.
+* match_id: Indicates the deepest matching rule id
+* matchlevel: Indicates how deeply nested the first match was. If `max_submatch_level` is zero, this will always be 1.
+* percent_coverage: A number 0 to 100 indicating how many percent of the string was matched
+
+Process_args may be any of the following:
+* max_submatch_level: Allow search to start from a nested matcher. If this value is 1, this means HashRules may skip at the very most one level. Recommended to be used with limit: -1
+* limit: Stop search when this number of matches have been found. Good for performance, but not recommended if `max_submatch_level` is more than zero because results won't guarantee best match.
