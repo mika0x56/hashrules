@@ -106,6 +106,8 @@ end
 ## Usage
 
 ```
+require 'hash_rules'
+
 rules = HashRules.new(args)
 
 # args:
