@@ -137,3 +137,7 @@ Process_args may be any of the following:
 
 * max_submatch_level: Allow search to start from a nested matcher. If this value is 1, this means HashRules may skip at the very most one level. Recommended to be used with limit: -1
 * limit: Stop search when this number of matches have been found. Good for performance, but not recommended if `max_submatch_level` is more than zero because results won't guarantee best match.
+
+## License
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">HashRules</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Mikael Wikman</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
