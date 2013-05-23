@@ -103,6 +103,10 @@ end
   </tr>
 </table>
 
+## Installation
+
+`gem install hashrules`
+
 ## Usage
 
 ```
