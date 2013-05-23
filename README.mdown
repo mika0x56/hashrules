@@ -5,7 +5,7 @@ A simple, yet powerful, gem for building constructions for identifying contents 
 
 ## Example
 
-Suppose you're building a system for identifying countries, regions and cities wihtin a string. An exerpt might look like this:
+Suppose you're building a system for identifying countries, regions and cities within a string. An exerpt might look like this:
 
 ```ruby
 match 'united states', w(/u ?s ?a/) do
@@ -26,7 +26,7 @@ match 'united states', w(/u ?s ?a/) do
 end
 ```
 
-This simple DSL translates to a series of OR and AND statements. For example, the path for matching all the way to 'Long Beach' is:
+This simple DSL translates to a series of OR and AND statements. For example, if we were to write the exact same logic but in plain if/then/else and regexes; the path for matching all the way to 'Long Beach' would be:
 
 ```ruby
 text = "Long Beach, California, United States"
@@ -128,5 +128,6 @@ Each result contains the following keys:
 * percent_coverage: A number 0 to 100 indicating how many percent of the string was matched
 
 Process_args may be any of the following:
+
 * max_submatch_level: Allow search to start from a nested matcher. If this value is 1, this means HashRules may skip at the very most one level. Recommended to be used with limit: -1
 * limit: Stop search when this number of matches have been found. Good for performance, but not recommended if `max_submatch_level` is more than zero because results won't guarantee best match.
