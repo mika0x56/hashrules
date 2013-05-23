@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['mikael@swedcontent.com']
   gem.description   = %q{Rule-based hash manipulator using custom DSL}
   gem.summary       = %q{ }
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/mikaelwikman/hashrules"
 
   gem.files         = `git ls-files`.split("\n")
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
