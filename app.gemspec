@@ -12,5 +12,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|features)/})
   gem.name          = "hashrules"
   gem.require_paths = ["lib"]
-  gem.version       = '1.1.3'
+  gem.version       = '1.1.4'
 end

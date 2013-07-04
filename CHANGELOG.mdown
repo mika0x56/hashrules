@@ -1,6 +1,10 @@
 
 # ChangeLog
 
+## 1.1.4
+
+* Bumped version due to need to republish to RubyGems (last version did not include all files)
+
 ## 1.1.3
 
 * Improved cache hits
